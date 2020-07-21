@@ -103,7 +103,7 @@ void ATankGameModeBase::HandleGameOver(bool PlayerWon)
 {
 	// See if the player has destroyed all the turrets, show win result.
    
-	// else if turret destroyed player, show lose result. 
+    // else if turret destroyed player, show lose result. 
    
    // Call blueprint version GameOver();
 	GameOver(PlayerWon);
@@ -119,8 +119,11 @@ void ATankGameModeBase::HandleGameOver(bool PlayerWon)
 		//GameStart();	
 		
 		//Después de Gamestart
-		//Disable Pawn HandleDestruction (PawnTank->  Visibilitity, Tick , Setbisalive) 
+		//Disable Pawn HandleDestruction (PawnTank->  Visibilitity, Tick , Setbisalive)
 
+	   
+		//PlayerTank->SetPlayerReAlive;
+	
 	}
 	else
 	{

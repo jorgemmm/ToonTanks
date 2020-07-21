@@ -13,6 +13,7 @@
 class APawnTurret;
 class APawnTank;
 class APlayerControllerBase;
+class UCameraShake;
 
 UCLASS()
 class TOONTANKS_API ATankGameModeBase : public AGameModeBase

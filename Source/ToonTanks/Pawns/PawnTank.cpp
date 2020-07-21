@@ -8,6 +8,7 @@
 
 
 
+
 APawnTank::APawnTank()
 {
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
@@ -65,6 +66,19 @@ bool APawnTank::GetPlayerAlive()
 {
 	return bAlive;
 }
+
+
+void APawnTank::SetPlayerReAlive()
+{
+	bAlive=true;	
+
+	// Show Player.
+	SetActorHiddenInGame(false);
+
+	//TODO - Create new function to Do this. 
+	SetActorTickEnabled(true);
+}
+
 
 
 

@@ -3,26 +3,34 @@
 
 #include "ProjectileBase.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/PlayerController.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/PrimitiveComponent.h"
-#include "Kismet/GameplayStatics.h"
 
-#include "DrawDebugHelpers.h"
 #include "CollisionQueryParams.h"
 #include "Engine/EngineTypes.h"
+#include "Engine/World.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "Sound/SoundBase.h"
+#include "Camera/CameraShake.h"
+#include "Kismet/GameplayStatics.h"
+#include "DrawDebugHelpers.h"
+
 
 // Sets default values
 AProjectileBase::AProjectileBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;//true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::OnHit);
 	RootComponent = ProjectileMesh;
+	
+	ParticleTrail = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Particle Trail"));
+	ParticleTrail->SetupAttachment(RootComponent);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement"));
-	
 	ProjectileMovement->InitialSpeed = MovementSpeed;
 	ProjectileMovement->MaxSpeed = MovementSpeed;
 
@@ -36,6 +44,8 @@ void AProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
+
 }
 
 void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -54,6 +64,7 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 
 	if (OtherActor != NULL && OtherActor != this && OtherActor != MyOwner)
 	{
+		//Dannage
 		UGameplayStatics::ApplyDamage(
 			OtherActor, 
 			Damage, 
@@ -61,18 +72,29 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 			this, 
 			DamageType
 		);
-		
+
+		// Particle System
 		UGameplayStatics::SpawnEmitterAtLocation(
 			this,
 			HitParticle,
 			GetActorLocation()
 		);
 
+		// Audio FX
+		UGameplayStatics::PlaySoundAtLocation(
+			this, 
+			HitSound,
+			GetActorLocation()
+		);
+
+		//Camera Shake
+		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(HitShake);
 
 	}
 
-	// Do a bunch of effects here during polish phase. 
-	// Audio FX
+
+	// Do a bunch of effects here during polish phase.
+	
 	
 	
 	//Destroy proyectile after Hit

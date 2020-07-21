@@ -2,23 +2,28 @@
 
 
 #include "PawnBase.h"
+//Project
+#include "ToonTanks/Actors/ProjectileBase.h"
+#include "ToonTanks/Components/HealthComponent.h"
 
+//Engine and components
+#include "Engine/World.h"
+//#include "Engine/EngineTypes.h"
+#include "GameFramework/PlayerController.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
+//#include "Components/PrimitiveComponent.h"
+
+//Libraries
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "ToonTanks/Actors/ProjectileBase.h"
-#include "ToonTanks/Components/HealthComponent.h"
-//#include "ProjectileBase.h"
-
-#include "Engine/World.h"
-#include "GameFramework/PlayerController.h"
 #include "DrawDebugHelpers.h"
 #include "CollisionQueryParams.h"
 #include "Particles/ParticleSystem.h"
-//#include "Engine/EngineTypes.h"
-//#include "Components/PrimitiveComponent.h"
+#include "Camera/CameraShake.h"
+
+
 
 #define OUT
 
@@ -131,10 +136,10 @@ void APawnBase::HandleDestruction()
 	// Play death effects particle, sound and camera shake. 	
 	
 	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticle, GetActorLocation());
+
+	UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
 	
-	
-	/*UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
-	GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(DeathShake);*/
+	GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(DeathShake);
 		
 
 

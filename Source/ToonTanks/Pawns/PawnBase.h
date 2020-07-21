@@ -14,6 +14,8 @@ class USceneComponent;
 class AProjectileBase;
 class UHealthComponent;
 class UParticleSystem;
+class USoundBase;
+class UCameraShake;
 
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
@@ -54,10 +56,13 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AProjectileBase> ProjectileClass;
 
-	// EFFECTS
+	// Death EFFECTS
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effects", meta = (AllowPrivateAccess = "true"))
 	UParticleSystem* DeathParticle;
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effects", meta = (AllowPrivateAccess = "true"))
+		USoundBase* DeathSound;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effects", meta = (AllowPrivateAccess = "true"))
+		TSubclassOf<UCameraShake>  DeathShake;
 
 protected:
 

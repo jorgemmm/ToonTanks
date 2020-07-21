@@ -15,6 +15,8 @@
 class USpringArmComponent;
 class UCameraComponent;
 
+
+
 UCLASS()
 class TOONTANKS_API APawnTank : public APawnBase
 {
@@ -33,12 +35,13 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	bool GetPlayerAlive();
-
+	
+	
+	bool GetPlayerAlive();	
+	void SetPlayerReAlive();
 	virtual void HandleDestruction() override;
 
 private:
@@ -48,6 +51,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components",	meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
+
+	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float MoveSpeed = 100.0f;
@@ -60,6 +65,7 @@ private:
 	APlayerController* PlayerControllerRef;
 	FHitResult TraceHitResult;
 
+	
 	bool bAlive = true;
 
 	void CalculateMoveInput(float Value);
