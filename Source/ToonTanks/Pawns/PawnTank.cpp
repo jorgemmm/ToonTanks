@@ -153,3 +153,4 @@ void APawnTank::HandleDestruction()
 	SetActorTickEnabled(false);
 
 }
+

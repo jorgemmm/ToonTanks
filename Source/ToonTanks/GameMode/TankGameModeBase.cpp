@@ -51,7 +51,9 @@ void ATankGameModeBase::ActorDied(AActor* DeadActor)
 		UE_LOG(LogTemp, Warning, TEXT("A EnemyPawn Died"));
 		
 		DestroyedTurret->PawnDestroyed();
-
+		Score+=5;
+		//Score+=DestroyedTurret->ScoreValue Upgrade
+		//Score+=DestroyedTurret->GetScoreValue() Upgrade
 		TargetTurrets--;
 
 		if (TargetTurrets == 0)
@@ -143,6 +145,12 @@ void ATankGameModeBase::HandleGameOver(bool PlayerWon)
 		UE_LOG(LogTemp, Error, TEXT("GM.HandleGameOver PlayerController not Found or none"));
 	}
 
+}
+
+
+float ATankGameModeBase::GetScore()
+{
+	return Score;
 }
 
 

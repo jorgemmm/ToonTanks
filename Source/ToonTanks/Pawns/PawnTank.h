@@ -42,7 +42,11 @@ public:
 	
 	bool GetPlayerAlive();	
 	void SetPlayerReAlive();
+
 	virtual void HandleDestruction() override;
+
+	/*UFUNCTION()
+	virtual float GetHealth() override;*/
 
 private:
 

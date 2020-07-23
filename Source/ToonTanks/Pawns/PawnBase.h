@@ -36,7 +36,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void PawnDestroyed();         
+	void PawnDestroyed();   
+
+	
 
 private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category="Components", 
@@ -74,7 +76,8 @@ protected:
 	//Change in child class: if turret or tank
 	virtual void HandleDestruction();
 
-
+	//UFUNCTION()
+	virtual float GetHealth();
 
 
 

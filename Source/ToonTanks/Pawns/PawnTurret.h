@@ -35,12 +35,21 @@ public:
 
 	virtual void HandleDestruction() override;
 
+	/*UFUNCTION()
+	virtual float GetHealth() override;*/
+
+	UFUNCTION()
+	float GetScoreValue();
+
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 		float FireRange = 500.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 		float FireRate = 2.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+		float ScoreValue = 1;
 
 	APawnTank* PlayerPawn;
 

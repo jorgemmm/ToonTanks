@@ -44,15 +44,22 @@ private:
 
 
 	
+	
 	void DelayToStart();//Deprecated
 	void EnableController();//Deprecated
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Game Loop", meta = (AllowPrivateAccess = "true"))
+	float Score =0.f;
 
 public:
 	void ActorDied(AActor* DeadActor);
+	
 	UFUNCTION(BlueprintImplementableEvent)
 		void GameStart();
 	UFUNCTION(BlueprintImplementableEvent)
 		void GameOver(bool PlayerWon);
+
+	UFUNCTION(BlueprintPure)
+	float GetScore();
 	
 };

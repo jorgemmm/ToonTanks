@@ -98,3 +98,11 @@ void APawnTurret::HandleDestruction()
 	//- Create new function to Do this. 
 
 }
+
+
+
+float APawnTurret::GetScoreValue()
+{
+	return ScoreValue;
+
+}

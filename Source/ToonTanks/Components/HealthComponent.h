@@ -30,6 +30,7 @@ public:
 	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Damage")
 	float DefaultHealth = 100.0f;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Damage")
 	float Health = 0.0f;
 
 	AActor* Owner;
