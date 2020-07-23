@@ -41,7 +41,10 @@ void APawnTank::Tick(float DeltaTime)
 	Move();
 
 	PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, true, TraceHitResult);
+
 	FVector HitLocation = TraceHitResult.ImpactPoint;
+
+	UE_LOG(LogTemp, Warning, TEXT("FIRE!! at hole to: %s"), *HitLocation.ToString());
 
 	RotateTurret(HitLocation);
 
