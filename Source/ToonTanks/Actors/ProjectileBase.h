@@ -44,8 +44,15 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float MovementSpeed = 1300.0f;
+	/*Daño Puntual o individual*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage", meta = (AllowPrivateAccess = "true"))
-	float Damage = 20.0f;
+	float PointDamage = 20.0f;
+	/*Daño radial*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage", meta = (AllowPrivateAccess = "true"))
+		float RadialDamage = 5.0f;
+	/*Radio de la explosión alcance del daño radial*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage", meta = (AllowPrivateAccess = "true"))
+		float RadialRange = 25.0f;
 	
 	// EFFECTS
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effects", meta = (AllowPrivateAccess = "true"))

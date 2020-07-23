@@ -2,8 +2,8 @@
 
 
 #include "PlayerControllerBase.h"
-#include "GameFramework/Controller.h"
-#include "GameFramework/Pawn.h"
+//#include "GameFramework/Controller.h"
+//#include "GameFramework/Pawn.h"
 
 
 
@@ -12,14 +12,14 @@ void APlayerControllerBase::SetPlayerEnabledState(bool SetPlayerEnabled)
 	if (SetPlayerEnabled)
 	{
 		GetPawn()->EnableInput(this);
-		bShowMouseCursor = true;
+		//bShowMouseCursor = true;
 	}
 	else
 	{
 		GetPawn()->DisableInput(this);
-		bShowMouseCursor = false;
+		//bShowMouseCursor = false;
 	}
 
-	//bShowMouseCursor = SetPlayerEnabled;
+	bShowMouseCursor = SetPlayerEnabled;
 }
 

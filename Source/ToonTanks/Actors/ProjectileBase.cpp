@@ -14,6 +14,7 @@
 #include "Sound/SoundBase.h"
 #include "Camera/CameraShake.h"
 #include "Kismet/GameplayStatics.h"
+
 #include "DrawDebugHelpers.h"
 
 
@@ -61,17 +62,37 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 
 	// If the OtherActors isn't self or owner && exists, then apply damage.
 	//And Particle system
+	TArray<AActor*> IgnorethisActors;// [] = { this , MyOwner };
+	IgnorethisActors.AddUnique(this);
+	IgnorethisActors.AddUnique(MyOwner);
 
 	if (OtherActor != NULL && OtherActor != this && OtherActor != MyOwner)
 	{
 		//Dannage
 		UGameplayStatics::ApplyDamage(
 			OtherActor, 
-			Damage, 
+			PointDamage,
 			MyOwner->GetInstigatorController(), 
 			this, 
 			DamageType
 		);
+
+		UGameplayStatics::ApplyRadialDamage(
+			OtherActor,
+			RadialDamage,
+			Hit.ImpactPoint,//GetActorLocation(),
+			RadialRange,
+			DamageType,
+			IgnorethisActors,
+			this,
+			MyOwner->GetInstigatorController()		
+			
+		);
+
+		DrawDebugSphere(GetWorld(), Hit.ImpactPoint , 20.f, 8.f, FColor::Yellow,false,3.0f,0,1.0f);
+
+		
+		//ProjectileMesh->AddForce(this->GetVelocity() * 100);
 
 		// Particle System
 		UGameplayStatics::SpawnEmitterAtLocation(

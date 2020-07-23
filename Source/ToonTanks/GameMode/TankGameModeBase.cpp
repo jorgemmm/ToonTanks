@@ -14,8 +14,8 @@ void ATankGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 	// Get references and game win/lose conditions.
-	TargetTurrets = GetTargetTurretCount();
-	PlayerTank = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
+	//TargetTurrets = GetTargetTurretCount();
+	//PlayerTank = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
 
 	// Call HandleGameStart to initialise the start countdown, turret activation, pawn check etc.
 	HandleGameStart();
@@ -77,20 +77,30 @@ int32 ATankGameModeBase::GetTargetTurretCount()
 
 void ATankGameModeBase::HandleGameStart()
 {
-	//in beginplay
-	/*TargetTurrets = GetTargetTurretCount();
-	PlayerTank = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));*/
+	//in beginplay¿?
+	// Get references and game win/lose conditions.
+	TargetTurrets = GetTargetTurretCount();
+	PlayerTank = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
+
+	//En online, 0 es el controller local
+	PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
+
 
 	// initialise the start countdown, turret activation, pawn check etc.
-	PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));//En online, 0 es el controller local
-
 	// Call Blueprint version GameStart();
 	GameStart();
 
-	if (PlayerControllerRef)
+	if (PlayerControllerRef!=nullptr)
 	{
+		//DelayToStart();
+		PlayerControllerRef->SetPlayerEnabledState(false);
+
+		FTimerHandle PlayerEnableHandle;
+
+		FTimerDelegate PlayerEnableDelegate = FTimerDelegate::CreateUObject(PlayerControllerRef, &APlayerControllerBase::SetPlayerEnabledState,true);		
+		GetWorldTimerManager().SetTimer(PlayerEnableHandle, PlayerEnableDelegate, StartDelay, false);
 		
-		DelayToStart();
+		
 
 	}
 	else
@@ -110,8 +120,11 @@ void ATankGameModeBase::HandleGameOver(bool PlayerWon)
 
 	if (PlayerControllerRef)
 	{
-		DelayToStart();
+
 		
+		//DelayToStart();
+		
+
 		//En Delay to start
 		//PawnTank->GetHealthcomponent->Health = PawnTank->GetHealthComponent->DefaultHealth;
 
@@ -134,6 +147,8 @@ void ATankGameModeBase::HandleGameOver(bool PlayerWon)
 
 
 
+
+//Deprecated
 void ATankGameModeBase::DelayToStart() 
 {
 	
@@ -160,6 +175,7 @@ void ATankGameModeBase::DelayToStart()
 	);
 }
 
+//Deprecated
 void ATankGameModeBase::EnableController()
 {
 

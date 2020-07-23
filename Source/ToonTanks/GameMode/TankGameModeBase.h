@@ -43,8 +43,9 @@ private:
 	void HandleGameOver(bool PlayerWon);
 
 
-	void DelayToStart();
-	void EnableController();
+	
+	void DelayToStart();//Deprecated
+	void EnableController();//Deprecated
 
 
 public:
