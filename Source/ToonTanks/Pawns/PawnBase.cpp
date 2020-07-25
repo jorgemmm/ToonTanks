@@ -101,6 +101,29 @@ void APawnBase::RotateTurret(FVector LookAtTarget)
 
 }
 
+void APawnBase::MoveTank(FVector NewLocation)
+{
+	FVector StartLocation = BaseMesh->GetComponentLocation();
+
+
+
+	BaseMesh->AddWorldOffset(NewLocation);
+
+	if ((StartLocation.Size() - NewLocation.Size()) > 100.f)
+	{
+		
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("GM MoveTank Distancia cercana"));
+	}
+
+	
+
+}
+
+
+
 void APawnBase::Fire()
 {
 	// Get ProjectileSpawnPoint Location && Rotation -> Spawn Projectile class
@@ -151,8 +174,3 @@ void APawnBase::HandleDestruction()
 
 }
 
-
-float APawnBase::GetHealth()
-{
-	return HealthComponent->Health;
-}

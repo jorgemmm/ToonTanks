@@ -38,7 +38,15 @@ public:
 
 	void PawnDestroyed();   
 
+
 	
+
+	/** Return the mesh for the BaseMesh */
+	FORCEINLINE class UStaticMeshComponent* GetBaseMesh() const { return BaseMesh; }
+
+	/** Return the mesh for the BaseMesh */
+	FORCEINLINE class UStaticMeshComponent* GetTurretMesh() const { return TurretMesh; }
+
 
 private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category="Components", 
@@ -71,13 +79,14 @@ protected:
 
 	void RotateTurret(FVector LookAtTarget);
 
+	void MoveTank(FVector NewLocation);
+
 	void Fire();
 
 	//Change in child class: if turret or tank
 	virtual void HandleDestruction();
 
-	//UFUNCTION()
-	virtual float GetHealth();
+	
 
 
 

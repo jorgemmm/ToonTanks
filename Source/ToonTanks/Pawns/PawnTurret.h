@@ -16,7 +16,7 @@
 class APawnTank;
 
 UCLASS()
-class TOONTANKS_API APawnTurret : public APawnBase
+class TOONTANKS_API APawnTurret: public APawnBase
 {
 	GENERATED_BODY()
 	
@@ -29,17 +29,20 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void HandleDestruction() override;
 
-	/*UFUNCTION()
-	virtual float GetHealth() override;*/
-
-	UFUNCTION()
+	
 	float GetScoreValue();
+
+
+	APawnTank* PlayerPawn;
+
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
@@ -49,9 +52,7 @@ private:
 		float FireRate = 2.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
-		float ScoreValue = 1;
-
-	APawnTank* PlayerPawn;
+		float ScoreValue = 1;	
 
 
 	void CheckFireCondition();

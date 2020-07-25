@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "PawnBase.h" 
+
+
 #include "PawnTank.generated.h"
 
 /**
@@ -18,7 +20,7 @@ class UCameraComponent;
 
 
 UCLASS()
-class TOONTANKS_API APawnTank : public APawnBase
+class TOONTANKS_API APawnTank: public APawnBase
 {
 	GENERATED_BODY()
 
@@ -45,8 +47,7 @@ public:
 
 	virtual void HandleDestruction() override;
 
-	/*UFUNCTION()
-	virtual float GetHealth() override;*/
+	
 
 private:
 
@@ -61,6 +62,7 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float MoveSpeed = 100.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	
 	float RotateSpeed = 100.0f;
 
 	FVector MoveDirection;

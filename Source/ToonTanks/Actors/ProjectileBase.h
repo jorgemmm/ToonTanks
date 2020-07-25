@@ -13,6 +13,10 @@ class UParticleSystemComponent;
 class USoundBase;
 class UCameraShake;
 
+/**
+PawnBase for turretenemy and PankTank 
+*/
+
 UCLASS()
 class TOONTANKS_API AProjectileBase : public AActor
 {
