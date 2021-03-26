@@ -45,8 +45,7 @@ public:
 
 
 private:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
-		float FireRange = 500.0f;
+	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 		float FireRate = 2.0f;
@@ -55,16 +54,21 @@ private:
 		float ScoreValue = 1;	
 
 
-	void CheckFireCondition();
-
-	FTimerHandle FireRateTimerHandle;
-
-	float ReturnDistanceToPlayer();
-
-protected:
+	
 
 	
 
+	
 
+protected:
+
+	FTimerHandle FireRateTimerHandle;
+
+	void CheckFireCondition();
+
+	float ReturnDistanceToPlayer();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+		float FireRange = 500.0f;
 	
 };

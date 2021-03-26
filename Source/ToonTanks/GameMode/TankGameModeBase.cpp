@@ -2,6 +2,7 @@
 
 
 #include "TankGameModeBase.h"
+#include "Toontanks/GameInstance/TankGameGameInstance.h"
 #include "ToonTanks/Pawns/PawnTank.h"
 #include "ToonTanks/Pawns/PawnTurret.h"
 #include "ToonTanks/PlayerControllers/PlayerControllerBase.h"
@@ -20,6 +21,7 @@ void ATankGameModeBase::BeginPlay()
 	// Call HandleGameStart to initialise the start countdown, turret activation, pawn check etc.
 	HandleGameStart();
 
+	LevelNames = {TEXT("Level1"), TEXT("Level2"), TEXT("Level3") };
 }
 
 
@@ -87,6 +89,9 @@ void ATankGameModeBase::HandleGameStart()
 	//En online, 0 es el controller local
 	PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
 
+	
+
+	TankGI = Cast<UTankGameGameInstance>( GetGameInstance() );
 
 	// initialise the start countdown, turret activation, pawn check etc.
 	// Call Blueprint version GameStart();
@@ -113,18 +118,45 @@ void ATankGameModeBase::HandleGameStart()
 
 void ATankGameModeBase::HandleGameOver(bool PlayerWon)
 {
-	// See if the player has destroyed all the turrets, show win result.
-   
-    // else if turret destroyed player, show lose result. 
-   
+	// See if the player has destroyed all the turrets, show win result.   
+    // else if turret destroyed player, show lose result.    
    // Call blueprint version GameOver();
+	  //in older version
+
+	//in this version the player goes to other map
+
 	GameOver(PlayerWon);
+
+	if (!PlayerWon)
+	{
+		DelayToStart();
+		return;
+	}
+	
+
+	
 
 	if (PlayerControllerRef)
 	{
+		int32 LevelID=0;
+		if (!TankGI)
+		{
+			UE_LOG(LogTemp, Error, TEXT("GM.HandleGameOver PyerWon not Found or none"));
+			DelayToStart();
+			return;
+		}
 
+		TankGI->UpdateLevelID();
 		
-		//DelayToStart();
+
+		LevelID= TankGI->GetLevelID();
+		//UE_LOG(LogTemp, Error, TEXT("GM GameOver LevelID: %d"), LevelID);
+
+
+		//Seamlesstravel ?¿
+		UGameplayStatics::OpenLevel(GetWorld(), LevelNames[LevelID]);
+		
+		
 		
 
 		//En Delay to start

@@ -14,6 +14,7 @@ class APawnTurret;
 class APawnTank;
 class APlayerControllerBase;
 class UCameraShake;
+class UTankGameGameInstance;
 
 UCLASS()
 class TOONTANKS_API ATankGameModeBase : public AGameModeBase
@@ -42,7 +43,8 @@ private:
 	void HandleGameStart();
 	void HandleGameOver(bool PlayerWon);
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game Loop", meta = (AllowPrivateAccess = "true"))
+	TArray<FName> LevelNames;
 	
 	
 	void DelayToStart();//Deprecated
@@ -51,13 +53,15 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Game Loop", meta = (AllowPrivateAccess = "true"))
 	float Score =0.f;
 
+	UTankGameGameInstance* TankGI;
+
 public:
 	void ActorDied(AActor* DeadActor);
 	
 	UFUNCTION(BlueprintImplementableEvent)
 		void GameStart();
 	UFUNCTION(BlueprintImplementableEvent)
-		void GameOver(bool PlayerWon);
+	 void GameOver(bool PlayerWon);
 
 	UFUNCTION(BlueprintPure)
 	float GetScore();
